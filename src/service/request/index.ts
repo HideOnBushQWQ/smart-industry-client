@@ -168,3 +168,47 @@ export const demoRequest = createRequest(
     }
   }
 );
+
+export const selfRequest = createRequest(
+  {
+    baseURL: otherBaseURL.self
+  },
+  {
+    transform(response: AxiosResponse<App.Service.SelfResponse>) {
+      return response.data.result;
+    },
+    async onRequest(config) {
+      const { headers } = config;
+
+      // set token
+      const token = localStg.get('token');
+      const Authorization = token ? `Bearer ${token}` : null;
+      Object.assign(headers, { Authorization });
+
+      return config;
+    },
+    isBackendSuccess(response) {
+      // when the backend response code is "200", it means the request is success
+      // you can change this logic by yourself
+      return Number(response.data.code) === 0;
+    },
+    async onBackendFail(_response) {
+      // when the backend response code is not "200", it means the request is fail
+      // for example: the token is expired, refresh token and retry request
+    },
+    onError(error) {
+      // when the request is fail, you can show error message
+
+      console.log('selfRequest error:', error);
+
+      let message = error.message;
+
+      // show backend error message
+      if (error.code === BACKEND_ERROR_CODE) {
+        message = error.response?.data?.message || message;
+      }
+
+      window.$message?.error(message);
+    }
+  }
+);

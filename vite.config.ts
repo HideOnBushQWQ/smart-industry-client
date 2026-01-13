@@ -32,13 +32,8 @@ export default defineConfig(configEnv => {
       BUILD_TIME: JSON.stringify(buildTime)
     },
     server: {
-      host: '0.0.0.0',
-      port: 9527,
       open: true,
       proxy: createViteProxy(viteEnv, enableProxy)
-    },
-    preview: {
-      port: 9725
     },
     build: {
       reportCompressedSize: false,

@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'SoybeanAdmin',
+    title: 'Smart Industry',
     updateTitle: 'System Version Update Notification',
     updateContent: 'A new version of the system has been detected. Do you want to refresh the page immediately?',
     updateConfirm: 'Refresh immediately',
@@ -225,7 +225,8 @@ const local: App.I18n.Schema = {
     404: 'Page Not Found',
     500: 'Server Error',
     'iframe-page': 'Iframe',
-    home: 'Home'
+    home: 'Home',
+    dashboard: 'Dashboard'
   },
   page: {
     login: {
@@ -292,6 +293,28 @@ const local: App.I18n.Schema = {
       visitCount: 'Visit Count',
       turnover: 'Turnover',
       dealCount: 'Deal Count',
+      dashboardGuide: {
+        title: 'Dashboard Usage Guide',
+        desc: 'Learn the core flow around real-time monitoring, trend forecasting, and tuning suggestions.',
+        tag: 'Quick Start',
+        quickTitle: 'Jump into the Dashboard',
+        quickDesc: 'Review live data, forecast curves, and suggestions to understand the current state.',
+        button: 'Go to Dashboard',
+        tip: 'Tip: The current values are mock data; connect real sensors later.',
+        steps: {
+          monitorTitle: 'Check real-time sensors',
+          monitorDesc: 'Watch value ranges and confirm stability.',
+          compareTitle: 'Compare forecast curves',
+          compareDesc: 'Use the right time window to observe trends.',
+          decisionTitle: 'Apply tuning suggestions',
+          decisionDesc: 'Adjust suggested sensors and verify results.'
+        },
+        quickTags: {
+          realtime: 'Live data',
+          forecast: 'Trend forecast',
+          advice: 'Tuning advice'
+        }
+      },
       projectNews: {
         title: 'Project News',
         moreNews: 'More News',
@@ -302,6 +325,42 @@ const local: App.I18n.Schema = {
         desc5: 'Soybean just wrote some of the workbench pages casually, and it was enough to see!'
       },
       creativity: 'Creativity'
+    },
+    dashboard: {
+      title: 'Concentration & Transmittance Forecast Platform',
+      operation: {
+        selectModel: 'Select Model',
+        horizon: 'Prediction Horizon',
+        refresh: 'Refresh Sensors',
+        start: 'Start Prediction'
+      },
+      actual: {
+        lastTime: 'Last Actual Measurement Time',
+        lastConc: 'Last Measured Concentration',
+        lastTrans: 'Last Measured Transmittance',
+        nextTime: 'Next Scheduled Measurement (every 8 hours)'
+      },
+      sensor: {
+        title: 'Real-time Sensor Data',
+        name: 'Sensor',
+        value: 'Value',
+        unit: 'Unit'
+      },
+      chart: {
+        conc: 'Concentration Forecast',
+        trans: 'Transmittance Forecast'
+      },
+      advice: {
+        title: 'Suggestion System (3–5 Adjustable Sensors)',
+        sensor: 'Sensor',
+        suggest: 'Suggested Value',
+        conc: 'Predicted Concentration After Adjustment',
+        trans: 'Predicted Transmittance After Adjustment'
+      },
+      message: {
+        loading: 'Predicting, please wait…',
+        success: 'Prediction completed'
+      }
     }
   },
   form: {

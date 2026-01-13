@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'Soybean 管理系统',
+    title: '智慧化工',
     updateTitle: '系统版本更新通知',
     updateContent: '检测到系统有新版本发布，是否立即刷新页面？',
     updateConfirm: '立即刷新',
@@ -222,7 +222,8 @@ const local: App.I18n.Schema = {
     404: '页面不存在',
     500: '服务器错误',
     'iframe-page': '外链页面',
-    home: '首页'
+    home: '首页',
+    dashboard: '仪表盘'
   },
   page: {
     login: {
@@ -289,6 +290,28 @@ const local: App.I18n.Schema = {
       visitCount: '访问量',
       turnover: '成交额',
       dealCount: '成交量',
+      dashboardGuide: {
+        title: '仪表盘使用指南',
+        desc: '围绕实时监测、预测趋势与调参建议，快速了解核心流程',
+        tag: '新手指引',
+        quickTitle: '快速进入仪表盘',
+        quickDesc: '查看实时数据、预测曲线与建议策略，掌握当前运行状态',
+        button: '进入仪表盘',
+        tip: '提示：当前数值为模拟数据，后续可接入真实传感器',
+        steps: {
+          monitorTitle: '查看实时传感器',
+          monitorDesc: '关注波动区间，确认当前状态是否稳定',
+          compareTitle: '对比预测曲线',
+          compareDesc: '选择合适时间窗口观察趋势变化',
+          decisionTitle: '参考调整建议',
+          decisionDesc: '根据建议传感器调整后评估效果'
+        },
+        quickTags: {
+          realtime: '实时数据',
+          forecast: '趋势预测',
+          advice: '调参建议'
+        }
+      },
       projectNews: {
         title: '项目动态',
         moreNews: '更多动态',
@@ -299,8 +322,45 @@ const local: App.I18n.Schema = {
         desc5: 'Soybean 刚才把工作台页面随便写了一些，凑合能看了！'
       },
       creativity: '创意'
+    },
+    dashboard: {
+      title: '浓度与透光率预测平台',
+      operation: {
+        selectModel: '选择模型',
+        horizon: '预测步长',
+        refresh: '刷新传感器',
+        start: '开始预测'
+      },
+      actual: {
+        lastTime: '最近一次实际检测时间',
+        lastConc: '最近实际浓度',
+        lastTrans: '最近实际透光率',
+        nextTime: '下一次计划检测（每 8 小时一次）'
+      },
+      sensor: {
+        title: '传感器实时数据',
+        name: '传感器',
+        value: '数值',
+        unit: '单位'
+      },
+      chart: {
+        conc: '浓度预测',
+        trans: '透光率预测'
+      },
+      advice: {
+        title: '建议系统（3–5 个可调传感器）',
+        sensor: '传感器',
+        suggest: '建议值',
+        conc: '建议后浓度',
+        trans: '建议后透光率'
+      },
+      message: {
+        loading: '正在预测，请稍候…',
+        success: '预测完成'
+      }
     }
   },
+
   form: {
     required: '不能为空',
     userName: {

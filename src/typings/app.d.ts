@@ -64,7 +64,7 @@ declare namespace App {
         /**
          * Whether to cache the tab
          *
-         * If cache, the tabs will get from the local storage when the page is refreshed
+         * If cached, the tabs will get from the local storage when the page is refreshed
          */
         cache: boolean;
         /** Tab height */
@@ -114,7 +114,7 @@ declare namespace App {
         visible: boolean;
         /** Watermark text */
         text: string;
-        /** Whether to use user name as watermark text */
+        /** Whether to use username as watermark text */
         enableUserName: boolean;
         /** Whether to use current time as watermark text */
         enableTime: boolean;
@@ -535,6 +535,28 @@ declare namespace App {
           visitCount: string;
           turnover: string;
           dealCount: string;
+          dashboardGuide: {
+            title: string;
+            desc: string;
+            tag: string;
+            quickTitle: string;
+            quickDesc: string;
+            button: string;
+            tip: string;
+            steps: {
+              monitorTitle: string;
+              monitorDesc: string;
+              compareTitle: string;
+              compareDesc: string;
+              decisionTitle: string;
+              decisionDesc: string;
+            };
+            quickTags: {
+              realtime: string;
+              forecast: string;
+              advice: string;
+            };
+          };
           projectNews: {
             title: string;
             moreNews: string;
@@ -545,6 +567,15 @@ declare namespace App {
             desc5: string;
           };
           creativity: string;
+        };
+        dashboard: {
+          title: string;
+          operation: { selectModel: string; horizon: string; refresh: string; start: string };
+          actual: { lastTime: string; lastConc: string; lastTrans: string; nextTime: string };
+          sensor: { title: string; name: string; value: string; unit: string };
+          chart: { conc: string; trans: string };
+          advice: { title: string; sensor: string; suggest: string; conc: string; trans: string };
+          message: { loading: string; success: string };
         };
       };
       form: {
@@ -600,7 +631,7 @@ declare namespace App {
   /** Service namespace */
   namespace Service {
     /** Other baseURL key */
-    type OtherBaseURLKey = 'demo';
+    type OtherBaseURLKey = 'demo' | 'self';
 
     interface ServiceConfigItem {
       /** The backend service base url */
@@ -637,6 +668,15 @@ declare namespace App {
     type DemoResponse<T = unknown> = {
       /** The backend service response code */
       status: string;
+      /** The backend service response message */
+      message: string;
+      /** The backend service response data */
+      result: T;
+    };
+
+    type SelfResponse<T = unknown> = {
+      /** The backend service response code */
+      code: number;
       /** The backend service response message */
       message: string;
       /** The backend service response data */
