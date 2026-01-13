@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { fetchLatestSensors } from '@/service/api/sensorApi';
 import { fetchLatestTrans, fetchPredTrans } from '@/service/api/trans';
 import { $t } from '@/locales';
@@ -78,23 +78,51 @@ async function loadPredTransData() {
   }
 }
 
-onMounted(async () => {
-  // 获取传感器数据
+let sensorTimer: number | null = null;
+let transTimer: number | null = null;
+
+/** 仅刷新传感器 */
+async function refreshSensorData() {
   try {
     const sensorData = await fetchLatestSensors();
-
     if (sensorData?.sensorList && Array.isArray(sensorData.sensorList) && sensorData.sensorList.length > 0) {
       sensors.value = sensorData.sensorList;
     }
   } catch {
     window.$message?.error('获取传感器数据失败');
   }
+}
 
-  // 获取透光率数据
+/** 刷新透光率 + 预测 */
+async function refreshTransData() {
   await loadTransData();
-
-  // 获取透光率预测数据
   await loadPredTransData();
+}
+
+onMounted(async () => {
+  // 首次全部立即执行
+  await Promise.all([refreshSensorData(), refreshTransData()]);
+
+  // 传感器：10s
+  sensorTimer = window.setInterval(() => {
+    refreshSensorData();
+  }, 10_000);
+
+  // 透光率 & 预测：30s
+  transTimer = window.setInterval(() => {
+    refreshTransData();
+  }, 30_000);
+});
+
+onUnmounted(() => {
+  if (sensorTimer !== null) {
+    clearInterval(sensorTimer);
+    sensorTimer = null;
+  }
+  if (transTimer !== null) {
+    clearInterval(transTimer);
+    transTimer = null;
+  }
 });
 </script>
 

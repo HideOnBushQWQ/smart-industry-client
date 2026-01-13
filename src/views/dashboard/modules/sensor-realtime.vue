@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { createReusableTemplate } from '@vueuse/core';
 import { NCard, NGi, NGrid } from 'naive-ui';
 import { useThemeStore } from '@/store/modules/theme';
@@ -11,7 +11,7 @@ defineOptions({ name: 'SensorRealtime' });
 const props = defineProps<{
   sensors: SensorLatestItem[];
 }>();
-
+const prevValueMap = ref<Record<string, number>>({});
 /** 颜色与图标池（循环使用） */
 const palettes = [
   { start: '#56cdf3', end: '#719de3', icon: 'mdi:chart-box-outline' },
@@ -25,7 +25,9 @@ type CardData = {
   key: string;
   title: string;
   value: number;
+  prevValue: number;
   unit: string;
+  decimals: number;
   color: { start: string; end: string };
   icon: string;
 };
@@ -33,15 +35,32 @@ type CardData = {
 const cardData = computed<CardData[]>(() =>
   (props.sensors || []).map((s, i) => {
     const p = palettes[i % palettes.length];
+    const prev = prevValueMap.value[s.id] ?? s.data;
+
     return {
       key: s.id,
       title: s.name,
       value: s.data,
+      prevValue: prev,
       unit: s.unit,
+      decimals: s.unit === '%' ? 2 : 3,
       color: { start: p.start, end: p.end },
       icon: p.icon
     };
   })
+);
+
+watch(
+  () => props.sensors,
+  newSensors => {
+    newSensors?.forEach(s => {
+      prevValueMap.value[s.id] = s.data;
+    });
+  },
+  {
+    deep: true,
+    flush: 'post'
+  }
 );
 
 interface GradientBgProps {
@@ -76,8 +95,10 @@ function getGradientColor(c: CardData['color']) {
               <SvgIcon :icon="item.icon" class="text-32px opacity-90" />
               <CountTo
                 :prefix="item.unit ? item.unit + ' ' : ''"
-                :start-value="0"
+                :start-value="item.prevValue"
                 :end-value="item.value"
+                :decimals="item.decimals"
+                :duration="800"
                 class="text-30px text-white"
               />
             </div>
