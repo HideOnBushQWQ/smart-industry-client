@@ -38,7 +38,8 @@ const { domRef, updateOptions } = useEcharts(() => ({
     data: [] as string[]
   },
   yAxis: {
-    type: 'value'
+    type: 'value',
+    scale: true
   },
   series: [
     {

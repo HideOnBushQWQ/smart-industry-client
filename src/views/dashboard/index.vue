@@ -55,7 +55,6 @@ async function loadTransData() {
 async function loadPredTransData() {
   try {
     const predData = await fetchPredTrans();
-
     if (
       predData?.predTransData?.after &&
       Array.isArray(predData.predTransData.after) &&
