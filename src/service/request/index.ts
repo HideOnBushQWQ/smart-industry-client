@@ -175,7 +175,7 @@ export const selfRequest = createRequest(
   },
   {
     transform(response: AxiosResponse<App.Service.SelfResponse>) {
-      return response.data.result;
+      return response.data.data;
     },
     async onRequest(config) {
       const { headers } = config;
@@ -198,8 +198,6 @@ export const selfRequest = createRequest(
     },
     onError(error) {
       // when the request is fail, you can show error message
-
-      console.log('selfRequest error:', error);
 
       let message = error.message;
 

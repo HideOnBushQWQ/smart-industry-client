@@ -5,9 +5,9 @@ import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import GlobalLogo from '../global-logo/index.vue';
 import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
-import GlobalSearch from '../global-search/index.vue';
+// import GlobalSearch from '../global-search/index.vue';
 import ThemeButton from './components/theme-button.vue';
-import UserAvatar from './components/user-avatar.vue';
+// import UserAvatar from './components/user-avatar.vue';
 
 defineOptions({
   name: 'GlobalHeader'

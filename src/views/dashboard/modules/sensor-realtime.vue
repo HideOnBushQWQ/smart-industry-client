@@ -4,12 +4,12 @@ import { createReusableTemplate } from '@vueuse/core';
 import { NCard, NGi, NGrid } from 'naive-ui';
 import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
-import type { SensorReading } from './types';
+import type { SensorLatestItem } from '@/types/api/sensor';
 
 defineOptions({ name: 'SensorRealtime' });
 
 const props = defineProps<{
-  sensors: SensorReading[];
+  sensors: SensorLatestItem[];
 }>();
 
 /** 颜色与图标池（循环使用） */
@@ -36,7 +36,7 @@ const cardData = computed<CardData[]>(() =>
     return {
       key: s.id,
       title: s.name,
-      value: s.value,
+      value: s.data,
       unit: s.unit,
       color: { start: p.start, end: p.end },
       icon: p.icon

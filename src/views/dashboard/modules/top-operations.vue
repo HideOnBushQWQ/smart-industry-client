@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { NButton, NInputNumber, NSelect } from 'naive-ui';
+import { NButton } from 'naive-ui';
 import { $t } from '@/locales';
 
 defineProps<{
-  modelId: string;
-  horizon: number;
-  modelOptions: { label: string; value: string }[];
+  // modelId: string;
+  // horizon: number;
+  // modelOptions: { label: string; value: string }[];
   loading: boolean;
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:modelId', v: string): void;
-  (e: 'update:horizon', v: number): void;
+  // (e: 'update:modelId', v: string): void;
+  // (e: 'update:horizon', v: number): void;
   (e: 'refresh'): void;
   (e: 'predict'): void;
 }>();
