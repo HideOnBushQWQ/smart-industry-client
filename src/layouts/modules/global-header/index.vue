@@ -3,6 +3,7 @@ import { useFullscreen } from '@vueuse/core';
 import { GLOBAL_HEADER_MENU_ID } from '@/constants/app';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
+import UserAvatar from '@/layouts/modules/global-header/components/user-avatar.vue';
 import GlobalLogo from '../global-logo/index.vue';
 import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
 // import GlobalSearch from '../global-search/index.vue';
@@ -52,7 +53,7 @@ const { isFullscreen, toggle } = useFullscreen();
         @switch="themeStore.toggleThemeScheme"
       />
       <ThemeButton />
-      <!--      <UserAvatar />-->
+      <UserAvatar />
     </div>
   </DarkModeContainer>
 </template>
