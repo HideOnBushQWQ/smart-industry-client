@@ -74,17 +74,14 @@ const { domRef, updateOptions } = useEcharts(() => ({
   ]
 }));
 
-async function mockData() {
-  await new Promise(resolve => {
-    setTimeout(resolve, 1000);
-  });
-
+function updateChartData() {
   updateOptions(opts => {
     opts.xAxis.data = props.time;
     opts.series[0].data = props.data;
     return opts;
   });
 }
+
 function updateLocale() {
   updateOptions((opts, factory) => {
     const originOpts = factory();
@@ -96,9 +93,16 @@ function updateLocale() {
   });
 }
 
-async function init() {
-  mockData();
-}
+// 监听 props 数据变化，更新图表
+watch(
+  () => [props.data, props.time],
+  () => {
+    if (props.data.length > 0 && props.time.length > 0) {
+      updateChartData();
+    }
+  },
+  { deep: true, immediate: true }
+);
 
 watch(
   () => appStore.locale,
@@ -106,7 +110,6 @@ watch(
     updateLocale();
   }
 );
-init();
 </script>
 
 <template>

@@ -5,12 +5,20 @@ import { NCard, NGi, NGrid, NStatistic } from 'naive-ui';
 import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
 import ChartPanel from '@/views/dashboard/modules/chart-panel.vue';
-import type { ActualHistory } from '@/views/dashboard/modules/types';
+import type { ActualHistory } from '@/types/api/trans';
 
 const props = defineProps<{
   lastActual: { time: string; conc: number; trans: number } | null;
   actualHistory: ActualHistory;
 }>();
+
+// 将时间格式化为只显示时分秒
+const formattedTime = computed(() => {
+  return props.actualHistory.ts.map((timeStr: string) => {
+    const date = new Date(timeStr);
+    return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  });
+});
 
 // const nextActualTime = computed(() => {
 //   if (!props.lastActual) return '-';
@@ -81,7 +89,7 @@ function getGradientColor() {
         <!--                <ChartPanel-->
         <!--                  :title="$t('page.dashboard.actual.lastConc')"-->
         <!--                  block-class="bg-success/5"-->
-        <!--                  :time="actualHistory.ts"-->
+        <!--                  :time="formattedTime"-->
         <!--                  :data="actualHistory.conc"-->
         <!--                  label="conc_hist"-->
         <!--                  :height="20"-->
@@ -117,7 +125,7 @@ function getGradientColor() {
                 <ChartPanel
                   :title="$t('page.dashboard.actual.lastTrans')"
                   block-class="bg-success/5"
-                  :time="actualHistory.ts"
+                  :time="formattedTime"
                   :data="actualHistory.trans"
                   label="trans_hist"
                   :height="20"

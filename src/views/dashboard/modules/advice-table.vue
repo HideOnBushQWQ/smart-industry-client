@@ -2,7 +2,7 @@
 import { h } from 'vue';
 import { type DataTableColumns, NDataTable } from 'naive-ui';
 import { $t } from '@/locales';
-import type { AdviceItem } from './types';
+import type { AdviceItem } from '@/types/api/trans';
 
 const props = defineProps<{
   data: AdviceItem[];
